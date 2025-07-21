@@ -1,0 +1,31 @@
+package vn.edu.fpt.koreandictionary.network;
+
+import retrofit2.Call;
+import retrofit2.http.*;
+
+import java.util.List;
+
+public interface FavoritesApiService {
+    class FavoriteInfo {
+        public String word;
+        public String definition;
+        public String pos;
+        public String pronunciation;
+        public long timestamp;
+    }
+
+    @GET("favorites")
+    Call<List<FavoriteInfo>> getAllFavorites();
+
+    @GET("favorites/is_favorite")
+    Call<Boolean> isFavorite(@Query("word") String word);
+
+    @POST("favorites")
+    Call<Void> addFavorite(@Body FavoriteInfo favorite);
+
+    @DELETE("favorites")
+    Call<Void> removeFavorite(@Query("word") String word);
+
+    @DELETE("favorites/clear")
+    Call<Void> clearFavorites();
+}
